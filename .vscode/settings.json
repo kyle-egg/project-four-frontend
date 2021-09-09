@@ -1,0 +1,11 @@
+{
+  "workbench.colorCustomizations": {
+    "statusBar.background": "#ff00ea",
+    "titleBar.activeBackground": "#ff00ea",
+    "titleBar.inactiveBackground": "#ff00ea",
+    "statusBar.foreground": "#000",
+    "titleBar.inactiveForeground": "#000",
+    "titleBar.activeForeground": "#000",
+  },
+  "window.title": "GINS FRONT END"
+}
