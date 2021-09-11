@@ -25,7 +25,7 @@ function App() {
         <Route path="/gins">
           <Gins />
         </Route>
-        <Route path="/user/:userId">
+        <Route path="/user">
           <UserProfile />
         </Route>
         <Route path="/register">

@@ -30,7 +30,7 @@ function GinProfile() {
     e.preventDefault()
     try {
       const { data } = await wishGin(ginId)
-      console.log(data)
+      console.log('Wished/UnWished', data)
     } catch (err) {
       setFormErrors(err.response.data.errors)
       console.log(err)
@@ -41,7 +41,7 @@ function GinProfile() {
     e.preventDefault()
     try {
       const { data } = await createReview(ginId, formData)
-      console.log(data)
+      console.log('Comment Submitted:', data)
     } catch (err) {
       setFormErrors(err.response.data.errors)
       console.log(err)
@@ -53,7 +53,6 @@ function GinProfile() {
     setFormErrors({ ...formErrors, [e.target.name]: '' })
   }
 
-  
   return (
     <section>
       <div>
@@ -73,6 +72,7 @@ function GinProfile() {
                   className="wishButton"
                   onClick={wishToggle}>
                     Add to Wish List!</button>
+                {console.log(gin.comments.text)}
                 {gin.comments &&
                 gin.comments.map(comment => {
                   return <div key={comment.id}>
@@ -108,7 +108,27 @@ function GinProfile() {
                       />
                     </div>
                   </div>
+                  <div className="field">
+                    <button 
+                      type="submit" 
+                      className="button is-black is-fullwidth"
+                      onSubmit={submitComment}>
+                      Submit Review!
+                    </button>
+                  </div>
                 </form>
+                <div>
+                  <h3>Member Reviews:</h3>
+                  <div>
+                    {gin.comments &&
+                gin.comments.map(comment => {
+                  return <div key={comment.id}>
+                    <h3>{comment.rated}/10</h3>
+                    <p>{comment.text}</p>
+                  </div>
+                })}
+                  </div>
+                </div>
               </div>
             </div>
             <div>
@@ -128,7 +148,6 @@ function GinProfile() {
               <p>{gin.perfectGt}</p>
             </div>
           </div> 
-          
         }
       </div>
     </section>

@@ -1,4 +1,16 @@
+import { userProfile } from '../../lib/api'
+import React from 'react'
+
 function UserProfile() {
+
+  React.useEffect(() => {
+    const getData = async () => {
+      const res = await userProfile()
+      console.log(res.data)
+    }
+    getData()
+    
+  }, [ ])
 
   return (
     <section>

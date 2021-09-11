@@ -29,3 +29,7 @@ export function createReview(ginId, formData) {
 }
 
 //* AUTH REQ
+
+export function userProfile() {
+  return axios.get('/api/auth/profile/', null, headers())
+}

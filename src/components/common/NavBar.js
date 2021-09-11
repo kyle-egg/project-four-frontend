@@ -14,7 +14,7 @@ function NavBar() {
             <NavLink to="/gins" className="navbar-item">
               Gins
             </NavLink>
-            <NavLink to="/user/:userId" className="navbar-item">
+            <NavLink to="/user/" className="navbar-item">
               My Profile
             </NavLink>
             <NavLink to="/register" className="navbar-item">
