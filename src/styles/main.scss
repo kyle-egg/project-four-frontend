@@ -5,6 +5,8 @@
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
+$primary-green: #77c19a;
+
 #home {
   background-image: url(https://cdn.shopify.com/s/files/1/0094/7319/6090/files/hero_0177107b-0925-49c3-a0cd-b851faaaf267.jpg?v=1623342231);
   background-size: cover;
@@ -18,18 +20,22 @@
 }
 
 #header {
-font-weight:900;
+font-weight:1000;
 text-align: center;
+padding: 3px;
 }
 
 #sub-header {
   font-size: 12pt;
   text-align: center;
+  padding: 3px;
   }
 
 #info {
     color: gray;
     text-align: center;
+    font-weight:800;
+    padding: 3px;
     }
 
 #home-body {
@@ -43,3 +49,54 @@ text-align: center;
   font-weight:900;
 }
 
+.navbar {
+  background-color: $primary-green;
+}
+
+#headerGin {
+  border-bottom: 5px solid yellow;
+  border-width: 10px;
+  font-weight: 1000;
+  text-align: center;
+  align-content: center;
+  padding: 25px;
+}
+
+.ginTop {
+  align-content: center;
+  text-align: center;
+  flex-direction: column;
+}
+
+.searchGins {
+  color: $primary-green;
+  font-weight: 900;
+  border-color: $primary-green;
+  background-color: $primary-green;
+  color: white;
+  width: 300px;
+  padding: 10px;
+  margin: 10px;
+  ::placeholder {
+    color: white;
+    opacity: 1;
+  }
+}
+
+.columns {
+  flex-wrap: wrap;
+}
+
+.column {
+  border: none;
+  .card {
+    width: 300px;
+    .card-image {
+      width: 300px;
+      height: 300px;
+    }
+    .media-content {
+      height: 150px;
+    }
+  }
+}

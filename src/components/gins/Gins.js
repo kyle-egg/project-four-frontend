@@ -1,12 +1,22 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { getAllGins } from '../../lib/api'
+import { fadeInDown, fadeIn } from 'react-animations'
+import styled, { keyframes } from 'styled-components'
+
+const fadeDownAnimation = keyframes`${fadeInDown}`
+export const fadeInAnimation = keyframes`${fadeIn}`
+
+const FadeDownDiv = styled.div`
+  animation: 2s ${fadeDownAnimation}`
+
+export const FadeInDiv = styled.div`
+  animation: 2s ${fadeInAnimation}`
 
 function Gins() {
   const [gins, setGins] = React.useState(null)
   const [flavourValue, setFlavourValue] = React.useState('')
   const [searchValue, setSearchValue] = React.useState('')
-  const isLoading = !gins
 
   React.useEffect(() => {
     const getData = async () => {
@@ -42,27 +52,33 @@ function Gins() {
   }
 
   return (
-    <section>
-      <h1>GINS</h1>
-      <h2>SEARCH</h2>
-      <input 
-        className='searchGins'
-        placeholder='Search...'
-        onChange={handleSearch}
-      />
-      <h2>SORT & FILTER</h2>
-      <select 
-        className='flavourSelector'
-        onChange={handleFlavour}>
-        <option value=''>Flavour:</option>
-        <option value='Classic'>Classic</option>
-        <option value='Citrus'>Citrus</option>
-        <option value='Spiced'>Spiced</option>
-        <option value='Fruit'>Fruit</option>
-        <option value='Floral'>Floral</option>
-        <option value='Herbs'>Herbs</option>
-      </select>
-      {/* <select 
+    <section className="section">
+      <FadeDownDiv>
+        <div className="ginTop">
+          <h1 className="title" id="headerGin" >GINS</h1>
+          <div>
+            <input 
+              className='searchGins'
+              placeholder='SEARCH'
+              onChange={handleSearch}
+              id="sub-header"
+            />
+          </div>
+          <div>
+            <button className="searchGins" id="sub-header">FILTER</button>
+          </div>
+          <select 
+            className='flavourSelector'
+            onChange={handleFlavour}>
+            <option value=''>Flavour:</option>
+            <option value='Classic'>Classic</option>
+            <option value='Citrus'>Citrus</option>
+            <option value='Spiced'>Spiced</option>
+            <option value='Fruit'>Fruit</option>
+            <option value='Floral'>Floral</option>
+            <option value='Herbs'>Herbs</option>
+          </select>
+          {/* <select 
         className='sorter'
         onChange={handleSort}>
         <option value=''>Sort By:</option>
@@ -70,30 +86,28 @@ function Gins() {
         <option value='price'>Price: Low</option>
         <option value='price'>Price: High</option>
       </select> */}
-
-      {isLoading ?
-        <>
-          <img src="https://media.giphy.com/media/mADcc0uyUzkrHkv4AG/giphy.gif?cid=790b76113024d6cb7cf5c7dd726ac3c5cc4e03eca9e129fa&rid=giphy.gif&ct=s"/> 
-        </>
-        :
-        gins &&
-        <h5>{filterGins().length} GINS FOUND</h5>}
-      <div>
+        </div>
+      </FadeDownDiv>
+      {gins &&
+        <h5 id="info">{filterGins().length} GINS FOUND</h5>}
+      <div className="columns">
         {gins && filterGins().map(gin => {
-          return <div key={gin.id}>
+          return <div className="column is-one-quarter"key={gin.id}>
             <Link to={`/gins/${gin.id}`}>
-              <div className="card">
-                <div className="card-image">
-                  <figure className="image is-4by4">
-                    <img src={gin.image}></img>
-                  </figure>
+              <FadeInDiv>
+                <div className="card">
+                  <div className="card-image">
+                    <figure className="image is-4by4">
+                      <img src={gin.image}></img>
+                    </figure>
+                  </div>
+                  <div className="media-content">
+                    <h5 id="info">ABV{gin.abv}% - {gin.size}CL</h5>
+                    <h2 id="header">{gin.name.toUpperCase()}</h2>
+                    <h3 id="sub-header">£{gin.price}</h3>
+                  </div>
                 </div>
-                <div className="media-content">
-                  <h5 id="info">ABV{gin.abv}% - {gin.size}CL</h5>
-                  <h2 id="header">{gin.name}</h2>
-                  <h3 id="sub-header">£{gin.price}</h3>
-                </div>
-              </div>
+              </FadeInDiv>
             </Link>
           </div> 
         })}

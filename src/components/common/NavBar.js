@@ -14,7 +14,7 @@ function NavBar() {
 
   return (
     <header>
-      <nav className="navbar is-primary">
+      <nav className="navbar">
         <div className="container">
           <div className="navbar-brand">
             <NavLink to="/" className="navbar-item">
