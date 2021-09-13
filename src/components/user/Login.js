@@ -63,7 +63,7 @@ function Login() {
             {isError && (
               <>
                 <p className="help is-danger">
-                Email Or Password Are Incorrect!<br></br>
+                Your E-mail And/Or Password Are Incorrect!<br></br>
                 Forgotten Your Password? <a>CLICK HERE!</a>
                 </p>
               </>

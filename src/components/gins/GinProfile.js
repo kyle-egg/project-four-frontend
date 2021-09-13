@@ -1,17 +1,21 @@
 import React from 'react'
 import { useParams } from 'react-router-dom'
 import { getGin, wishGin, createReview } from '../../lib/api'
+import { isAuthenticated } from '../../lib/auth'
 
 const initialState = {
   'rated': '',
   'text': '',
 }
 
+export const basket = []
+
 function GinProfile() {
   const [gin, setGin] = React.useState(null)
   const [formData, setFormData] = React.useState(initialState)
   const [formErrors, setFormErrors] = React.useState(initialState)
   const { ginId } = useParams()
+  const isAuth = isAuthenticated()
 
   React.useEffect(() => {
     const getData = async () => {
@@ -43,6 +47,7 @@ function GinProfile() {
       const { data } = await createReview(ginId, formData)
       console.log('Comment Submitted:', data)
     } catch (err) {
+      console.log(formErrors)
       setFormErrors(err.response.data.errors)
       console.log(err)
     }
@@ -52,6 +57,16 @@ function GinProfile() {
     setFormData({ ...formData, [e.target.name]: e.target.value })
     setFormErrors({ ...formErrors, [e.target.name]: '' })
   }
+
+  const addToCart = () => {
+    console.log(gin)
+    basket.push(gin)
+    console.log(basket)
+  }
+
+  const rateArray = []
+  const reducer = (previousValue, currentValue) => previousValue + currentValue
+
 
   return (
     <section>
@@ -66,20 +81,29 @@ function GinProfile() {
                 {gin.likedBy.length ?
                   <h3>{gin.likedBy.length} Member(s) have added this Gin to their Wish List!</h3>
                   :
-                  <h3>This Gin Is Unloved!</h3>}
-                <button 
-                  type="submit" 
-                  className="wishButton"
-                  onClick={wishToggle}>
+                  <h3> </h3>}
+                {isAuth &&
+                  <button 
+                    type="submit" 
+                    className="wishButton"
+                    onClick={wishToggle}>
                     Add to Wish List!</button>
-                {console.log(gin.comments.text)}
+                }
                 {gin.comments &&
                 gin.comments.map(comment => {
-                  return <div key={comment.id}>
-                    <h3>This Gin Has An Average Member Rating Of:</h3>
-                    <h3>{comment.rated / gin.comments.length}/10!</h3>
+                  <div key={comment.id}>
+                    <div>{rateArray.push(comment.rated)}</div>
                   </div>
                 })}
+                {gin.comments.length ?
+                  <>
+                    <h3>This Gin Has An Average Member Rating Of:</h3>
+                    <h2>{rateArray.reduce(reducer) / gin.comments.length}/10!</h2>
+                  </>
+                  :
+                  <h3>This Gin Has Not Been Rated Yet!</h3>
+                }
+                {isAuth &&
                 <form
                   id='createComment'
                   onSubmit={submitComment}>
@@ -87,7 +111,7 @@ function GinProfile() {
                     <label className="label">Write A Review:</label>
                     <div className="control">
                       <input
-                        className="input"
+                        className={`input ${formErrors.text}`}
                         placeholder="Write A Review Here..."
                         name="text"
                         onChange={inputtingComment}
@@ -99,7 +123,7 @@ function GinProfile() {
                     <label className="label">Rate it:</label>
                     <div className="control">
                       <input
-                        className="input"
+                        className={`input ${formErrors.rated}`}
                         name="rated"
                         placeholder="Rate Out Of 10.."
                         type="number"
@@ -117,8 +141,12 @@ function GinProfile() {
                     </button>
                   </div>
                 </form>
+                }
                 <div>
-                  <h3>Member Reviews:</h3>
+                  {gin.comments.length ?
+                    <h3>Member Reviews:</h3>
+                    :
+                    <h3> </h3>}
                   <div>
                     {gin.comments &&
                 gin.comments.map(comment => {
@@ -135,7 +163,7 @@ function GinProfile() {
               <h2>{gin.name}</h2>
               <h5>ABV{gin.abv}% - {gin.size}CL</h5>
               <h3>£{gin.price}</h3>
-              <button>Add To Cart</button>
+              <button onClick={addToCart}>Add To Cart</button>
               <h4>About:</h4>
               <p>{gin.bio}</p>
               <h4>Origin:</h4>
