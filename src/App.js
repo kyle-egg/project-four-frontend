@@ -13,32 +13,34 @@ import CheckOut from './components/user/CheckOut.js'
 function App() {
 
   return (
-    <BrowserRouter>
-      <NavBar />
-      <Switch>
-        <Route exact path="/">
-          <Home />
-        </Route>
-        <Route path="/gins/:ginId">
-          <GinProfile />
-        </Route>
-        <Route path="/gins">
-          <Gins />
-        </Route>
-        <Route path="/user">
-          <UserProfile />
-        </Route>
-        <Route path="/register">
-          <Register />
-        </Route>
-        <Route path="/login">
-          <Login />
-        </Route>
-        <Route path="/checkout">
-          <CheckOut />
-        </Route>
-      </Switch>
-    </BrowserRouter>
+    <>
+      <BrowserRouter>
+        <NavBar />
+        <Switch>
+          <Route exact path="/">
+            <Home />
+          </Route>
+          <Route path="/gins/:ginId">
+            <GinProfile />
+          </Route>
+          <Route path="/gins">
+            <Gins />
+          </Route>
+          <Route path="/user">
+            <UserProfile />
+          </Route>
+          <Route path="/register">
+            <Register />
+          </Route>
+          <Route path="/login">
+            <Login />
+          </Route>
+          <Route path="/checkout">
+            <CheckOut />
+          </Route>
+        </Switch>
+      </BrowserRouter>
+    </>
   )
 }
 

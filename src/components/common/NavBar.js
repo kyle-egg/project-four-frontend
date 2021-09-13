@@ -1,11 +1,20 @@
 import React from 'react'
-import { NavLink } from 'react-router-dom'
+import { NavLink, useHistory, useLocation } from 'react-router-dom'
+import { isAuthenticated, removeToken } from '../../lib/auth'
 
 function NavBar() {
+  useLocation()
+  const history = useHistory()
+  const isAuth = isAuthenticated()
+
+  const handleLogout = () => {
+    removeToken()
+    history.push('/')
+  }
 
   return (
     <header>
-      <nav className="navbar">
+      <nav className="navbar is-primary">
         <div className="container">
           <div className="navbar-brand">
             <NavLink to="/" className="navbar-item">
@@ -17,12 +26,21 @@ function NavBar() {
             <NavLink to="/user/" className="navbar-item">
               My Profile
             </NavLink>
-            <NavLink to="/register" className="navbar-item">
-              Register
-            </NavLink>
-            <NavLink to="/login" className="navbar-item">
-              Login
-            </NavLink>
+            {!isAuth && (
+              <>
+                <NavLink to="/register" className="navbar-item">
+                Register
+                </NavLink>
+                <NavLink to="/login" className="navbar-item">
+                Login
+                </NavLink>
+              </>
+            )}
+            {isAuth && (
+              <NavLink to="/" exact className="navbar-item" onClick={handleLogout}>
+            Log Out
+              </NavLink>
+            )}
             <NavLink to="/checkout" className="navbar-item">
               Check Out
             </NavLink>

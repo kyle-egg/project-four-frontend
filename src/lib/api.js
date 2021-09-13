@@ -1,7 +1,7 @@
 import { getToken } from './auth.js'
 import axios from 'axios'
 
-function headers() {
+export function headers() {
   return {
     headers: { Authorization: `Bearer ${getToken()}` },
   }
@@ -30,6 +30,6 @@ export function createReview(ginId, formData) {
 
 //* AUTH REQ
 
-export function userProfile() {
-  return axios.get('/api/auth/profile/', null, headers())
+export function userProfile(userId) {
+  return axios.get(`/api/auth/profile/${userId}`, headers())
 }

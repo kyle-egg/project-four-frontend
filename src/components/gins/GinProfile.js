@@ -9,6 +9,7 @@ const initialState = {
 }
 
 export const basket = []
+const reducer = (previousValue, currentValue) => previousValue + currentValue
 
 function GinProfile() {
   const [gin, setGin] = React.useState(null)
@@ -59,13 +60,12 @@ function GinProfile() {
   }
 
   const addToCart = () => {
-    console.log(gin)
     basket.push(gin)
     console.log(basket)
   }
 
   const rateArray = []
-  const reducer = (previousValue, currentValue) => previousValue + currentValue
+
 
 
   return (
@@ -98,7 +98,7 @@ function GinProfile() {
                 {gin.comments.length ?
                   <>
                     <h3>This Gin Has An Average Member Rating Of:</h3>
-                    <h2>{rateArray.reduce(reducer) / gin.comments.length}/10!</h2>
+                    <h2>{Math.round(rateArray.reduce(reducer) / gin.comments.length * 10) / 10}/10!</h2>
                   </>
                   :
                   <h3>This Gin Has Not Been Rated Yet!</h3>

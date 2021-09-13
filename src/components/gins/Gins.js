@@ -82,15 +82,20 @@ function Gins() {
         {gins && filterGins().map(gin => {
           return <div key={gin.id}>
             <Link to={`/gins/${gin.id}`}>
-              <div className='ginCard'>
-                <img src={gin.image}></img>
-                <h5>ABV{gin.abv}% - {gin.size}CL</h5>
-                <h2>{gin.name}</h2>
-                <h3>£{gin.price}</h3>
+              <div className="card">
+                <div className="card-image">
+                  <figure className="image is-4by4">
+                    <img src={gin.image}></img>
+                  </figure>
+                </div>
+                <div className="media-content">
+                  <h5 id="info">ABV{gin.abv}% - {gin.size}CL</h5>
+                  <h2 id="header">{gin.name}</h2>
+                  <h3 id="sub-header">£{gin.price}</h3>
+                </div>
               </div>
             </Link>
           </div> 
-          
         })}
       </div>
     </section>
