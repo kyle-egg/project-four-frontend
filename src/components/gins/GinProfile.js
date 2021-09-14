@@ -23,6 +23,7 @@ function GinProfile() {
   const { ginId } = useParams()
   const isAuth = isAuthenticated()
   const [active, setActive] = React.useState(false)
+  const [showText, setShowText] = React.useState(false)
 
   React.useEffect(() => {
     const getData = async () => {
@@ -39,8 +40,9 @@ function GinProfile() {
 
 
   const wishToggle = async e => {
-    console.log(e)
+    e.preventDefault()
     setActive(!active)
+    setShowText(true)
     try {
       const { data } = await wishGin(ginId)
       console.log('Wished/UnWished', data)
@@ -52,6 +54,7 @@ function GinProfile() {
 
   const submitComment = async e => {
     e.preventDefault()
+    setShowText(true)
     try {
       const { data } = await createReview(ginId, formData)
       console.log('Comment Submitted:', data)
@@ -78,6 +81,9 @@ function GinProfile() {
 
   return (
     <section className="section">
+      {showText ? 
+        <p>SUP</p>
+        : null}
       <div>
         {gin &&
         <>

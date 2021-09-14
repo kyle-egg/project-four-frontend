@@ -13,7 +13,7 @@ export const fadeInUpAnimation = keyframes`${fadeInUp}`
 export const FadeInUpDiv = styled.div`
   animation: 2s ${fadeInUpAnimation}`
 
-const FadeDownDiv = styled.div`
+export const FadeDownDiv = styled.div`
   animation: 2s ${fadeDownAnimation}`
 
 export const FadeInDiv = styled.div`
