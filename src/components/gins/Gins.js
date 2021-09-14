@@ -1,17 +1,30 @@
 import React from 'react'
 import { Link } from 'react-router-dom'
 import { getAllGins } from '../../lib/api'
-import { fadeInDown, fadeIn } from 'react-animations'
+import { fadeInDown, fadeInUp, fadeInLeft, fadeInRight, fadeIn } from 'react-animations'
 import styled, { keyframes } from 'styled-components'
 
 const fadeDownAnimation = keyframes`${fadeInDown}`
 export const fadeInAnimation = keyframes`${fadeIn}`
+export const fadeInLeftAnimation = keyframes`${fadeInLeft}`
+export const fadeInRightAnimation = keyframes`${fadeInRight}`
+export const fadeInUpAnimation = keyframes`${fadeInUp}`
+
+export const FadeInUpDiv = styled.div`
+  animation: 2s ${fadeInUpAnimation}`
 
 const FadeDownDiv = styled.div`
   animation: 2s ${fadeDownAnimation}`
 
 export const FadeInDiv = styled.div`
   animation: 2s ${fadeInAnimation}`
+
+export const FadeInLeftDiv = styled.div`
+  animation: 2s ${fadeInLeftAnimation}`
+
+export const FadeInRightDiv = styled.div`
+  animation: 2s ${fadeInRightAnimation}`
+
 
 function Gins() {
   const [gins, setGins] = React.useState(null)
@@ -78,21 +91,13 @@ function Gins() {
             <option value='Floral'>Floral</option>
             <option value='Herbs'>Herbs</option>
           </select>
-          {/* <select 
-        className='sorter'
-        onChange={handleSort}>
-        <option value=''>Sort By:</option>
-        <option value='name'>Name</option>
-        <option value='price'>Price: Low</option>
-        <option value='price'>Price: High</option>
-      </select> */}
         </div>
       </FadeDownDiv>
       {gins &&
         <h5 id="info">{filterGins().length} GINS FOUND</h5>}
       <div className="columns">
         {gins && filterGins().map(gin => {
-          return <div className="column is-one-quarter"key={gin.id}>
+          return <div className="column"key={gin.id} id="column">
             <Link to={`/gins/${gin.id}`}>
               <FadeInDiv>
                 <div className="card">

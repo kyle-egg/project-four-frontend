@@ -1,11 +1,14 @@
 @charset "utf-8";
 @import "../../node_modules/bulma/bulma.sass";
+@import "react-alice-carousel/lib/scss/alice-carousel.scss";
 
 * {
   font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
 }
 
 $primary-green: #77c19a;
+$primary-blue: #343579;
+$primary-yellow: #f5d34e;
 
 #home {
   background-image: url(https://cdn.shopify.com/s/files/1/0094/7319/6090/files/hero_0177107b-0925-49c3-a0cd-b851faaaf267.jpg?v=1623342231);
@@ -15,7 +18,7 @@ $primary-green: #77c19a;
 #home-title-container {
   background-color: rgba(255, 255, 255, 0.75);
   padding: 30px;
-  border-bottom: 5px solid yellow;
+  border-bottom: 5px solid $primary-yellow;
   justify-content: center;
 }
 
@@ -51,6 +54,7 @@ padding: 3px;
 
 .navbar {
   background-color: $primary-green;
+  border-bottom: 10px solid  $primary-blue;
 }
 
 #headerGin {
@@ -87,16 +91,146 @@ padding: 3px;
   flex-wrap: wrap;
 }
 
-.column {
+#column {
   border: none;
+  width: 300px;
+  justify-content: center;
+  border:none;
   .card {
     width: 300px;
     .card-image {
+      justify-content: center;
       width: 300px;
       height: 300px;
+      .image {
+        width: 300px;
+        background-image: url(https://cdn.shopify.com/s/files/1/0094/7319/6090/t/29/assets/bottle-background-normal.jpg?v=9838688341384313788);
+      }
     }
     .media-content {
       height: 150px;
+      width: 300px;
     }
   }
 }
+
+.buttons {
+  color: $primary-green;
+  font-weight: 900;
+  border-color: $primary-green;
+  background-color: $primary-green;
+  color: white;
+  padding: 10px;
+  margin: 10px 0px;
+  width: 300px;
+  text-align: center;
+  justify-content: center;
+  ::placeholder {
+    color: white;
+    opacity: 1;
+  }
+}
+
+#ginheader {
+  font-weight:1000;
+  padding: 3px;
+  font-size: 25pt;
+  }
+  
+#ginsub-header {
+    font-size: 12pt;
+    padding: 3px;
+    font-size: 20pt;
+    background-color: $primary-yellow;
+    background: linear-gradient(45deg, $primary-yellow 10%, white 35%)
+    }
+  
+#gininfo {
+      color: gray;
+      font-weight:800;
+      padding: 3px;
+      }
+
+#ginprofileimage {
+  max-width: 600px;
+  background-image: url(https://cdn.shopify.com/s/files/1/0094/7319/6090/t/29/assets/bottle-background-normal.jpg?v=9838688341384313788);
+}
+
+#ginprofileright {
+  min-height: 600px;
+  justify-content: space-between;
+}
+
+.ginattributes {
+  padding: 5px 0px;
+}
+
+.ginStats {
+  color: white;
+  font-weight:900;
+  font-size: 13pt;
+  background-color: $primary-blue;
+  max-width: 600px;
+  text-align: center;
+  justify-content: center;
+  .ginstat {
+    padding: 5px;
+    
+  }
+}
+
+.wish {
+  text-align: center;
+  justify-content: center;
+}
+.heart {
+  text-align: center;
+  justify-content: center;
+  width: 50px;
+}
+
+#createComment {
+  padding: 20px;
+}
+
+#review {
+  border-bottom: 5px solid yellow;
+}
+
+#reviews {
+  padding: 20px;
+}
+
+#myprofile {
+  background-image: url(https://www.craftginclub.co.uk/assets/customer-portal/yellow-box-spill-flipped.jpg);
+  background-size: cover;
+}
+
+#profile-body {
+  flex-direction: column;
+  justify-content: center;
+}
+
+#profileheader {
+  font-weight:1000;
+  padding: 3px;
+  font-size: 25pt;
+  color: white;
+  }
+
+  #profilesub-header {
+    font-size: 12pt;
+    padding: 3px;
+    font-size: 20pt;
+    color: $primary-blue
+    }
+
+    #profileinfo {
+      color: $primary-blue;
+      font-weight:800;
+      padding: 3px;
+      text-align: center;
+      }
+      .ginThumb {
+        width: 200px;
+      }
