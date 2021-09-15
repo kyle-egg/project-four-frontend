@@ -1,11 +1,9 @@
 import React from 'react'
-import { useParams, NavLink } from 'react-router-dom'
+import { useParams, NavLink, useHistory } from 'react-router-dom'
 import { getGin, wishGin, createReview } from '../../lib/api'
 import { isAuthenticated } from '../../lib/auth'
 import { FadeInDiv, FadeInLeftDiv, FadeInRightDiv, FadeInUpDiv } from './Gins'
 import Heart from 'react-heart'
-
-
 
 
 
@@ -25,6 +23,7 @@ function GinProfile() {
   const isAuth = isAuthenticated()
   const [active, setActive] = React.useState(false)
   const [showBasket, setShowBasket] = React.useState(false)
+  const history = useHistory()
 
   React.useEffect(() => {
     const getData = async () => {
@@ -80,7 +79,13 @@ function GinProfile() {
 
   const rateArray = []
 
+  const register = () => {
+    history.push('/register')
+  }
 
+  const login = () => {
+    history.push('/login')
+  }
 
   return (
     <>
@@ -117,11 +122,21 @@ function GinProfile() {
             <div key={gin.id} className="columns">
               <div className="column">
                 <FadeInLeftDiv>
-                  <div className="card-image">
-                    <figure className="image is-4by4" id="ginprofileimage">
-                      <img src={gin.image}></img>
-                    </figure>
-                  </div>
+                  {isAuth && gin.isPremium ?
+                    <div className="card-image">
+                      <figure className="image is-4by4" id="ginprofileimage">
+                        <img src={gin.image}></img>
+                      </figure>
+                    </div>
+                    :
+                    <div id="premium">
+                      <div>
+                        <svg xmlns="http://www.w3.org/2000/svg" className="ionicon" viewBox="0 0 512 512"><title>Lock Closed</title><path d="M336 208v-95a80 80 0 00-160 0v95" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="32"/><rect x="96" y="208" width="320" height="272" rx="48" ry="48" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="32"/></svg>
+                      </div>
+                      <figure className="image is-4by4" id="premium">
+                      </figure>
+                    </div>
+                  }
                   <div className="ginStats">
                     {gin.likedBy.length ?
                       <h2 className="ginstat"><strong className="ginStats">{gin.likedBy.length}</strong> Member(s) have added this Gin to their Wish List!</h2>
@@ -159,7 +174,15 @@ function GinProfile() {
                   <h2 className="ginattributes" id="ginheader"><strong>{gin.name}</strong></h2>
                   <h5 className="ginattributes" id="gininfo">ABV{gin.abv}% - {gin.size}CL</h5>
                   <h3 className="ginattributes" id="ginsub-header">£{gin.price}</h3>
-                  <button className="buttons" onClick={addToBasket}>Add To Basket</button>
+                  {isAuth && gin.isPremium ?
+                    <button className="buttons" onClick={addToBasket}>Add To Basket</button>
+                    :
+                    <>
+                      <h2 id="membermessage">This Gin Can Only Be Purchased By Members. Register Or Login Below!</h2>
+                      <button className="buttons" onClick={register}>Register</button>
+                      <button className="buttons" onClick={login}>Login</button>
+                    </>
+                  }
                   <h4 className="ginattributes"><strong>About:</strong></h4>
                   <p className="ginattributes">{gin.bio}</p>
                   <h4 className="ginattributes"><strong>Origin:</strong></h4>

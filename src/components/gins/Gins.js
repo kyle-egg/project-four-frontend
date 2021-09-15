@@ -3,6 +3,7 @@ import { Link } from 'react-router-dom'
 import { getAllGins } from '../../lib/api'
 import { fadeInDown, fadeInUp, fadeInLeft, fadeInRight, fadeIn } from 'react-animations'
 import styled, { keyframes } from 'styled-components'
+import { isAuthenticated } from '../../lib/auth'
 
 const fadeDownAnimation = keyframes`${fadeInDown}`
 export const fadeInAnimation = keyframes`${fadeIn}`
@@ -31,6 +32,7 @@ function Gins() {
   const [flavourValue, setFlavourValue] = React.useState('')
   const [searchValue, setSearchValue] = React.useState('')
   const [showFilter, setShowFilter] = React.useState(false)
+  const isAuth = isAuthenticated()
 
   React.useEffect(() => {
     const getData = async () => {
@@ -115,19 +117,29 @@ function Gins() {
             <Link to={`/gins/${gin.id}`}>
               <FadeInDiv>
                 <div className="card">
-                  <div className="card-image">
-                    {!gin.isPremium ?
+                  {!isAuth ?
+                    <div className="card-image">
+                      {!gin.isPremium ?
+                        <figure className="image is-4by4">
+                          <img src={gin.image}></img>
+                        </figure>
+                        :
+                        <div id="premium">
+                          <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" className="ionicon" viewBox="0 0 512 512"><title>Lock Closed</title><path d="M336 208v-95a80 80 0 00-160 0v95" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="32"/><rect x="96" y="208" width="320" height="272" rx="48" ry="48" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="32"/></svg>
+                          </div>
+                          <figure className="image is-4by4" id="premium">
+                          </figure>
+                        </div>
+                      }
+                    </div>
+                    :
+                    <div className="card-image">
                       <figure className="image is-4by4">
                         <img src={gin.image}></img>
                       </figure>
-                      :
-                      <div id="premium">
-                        <figure className="image is-4by4" id="premium">
-                          <img src={gin.image}></img>
-                        </figure>
-                      </div>
-                    }
-                  </div>
+                    </div>
+                  }
                   <div className="media-content">
                     <h5 id="info">ABV{gin.abv}% - {gin.size}CL</h5>
                     <h2 id="header">{gin.name.toUpperCase()}</h2>

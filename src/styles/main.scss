@@ -336,5 +336,16 @@ padding: 3px;
 }
 
 #premium {
-  background-image:linear-gradient(to bottom right, red , blue)
+  background-image:linear-gradient(to bottom right, red , blue);
+  opacity: 0.5;
+}
+
+.members {
+  background-image: url(../assets/MEMBERSONLY.png);
+  background-repeat: no-repeat;
+}
+
+#membermessage {
+  font-weight: 900;
+  color: red;
 }
