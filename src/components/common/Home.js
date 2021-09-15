@@ -8,6 +8,7 @@ function Home() {
       <div className="hero-body" id="home-body">
         <FadeInDiv>
           <div className="ccontainer has-text-centered" id="home-title-container">
+            <img className="logo" width="110" height="110"/>
             <p className="title" id="header">
         YOUR FAVOURITE GINS
             </p>

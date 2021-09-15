@@ -260,3 +260,81 @@ padding: 3px;
   border: none;
   width: 100px;
 }
+
+#basketitems {
+  font-weight: 500;
+  padding: 3px;
+  font-size: 18pt;
+  color: white;
+  text-align: center;
+  justify-content: center;
+  }
+
+  .checkoutbutton {
+    color: $primary-green;
+    font-weight: 900;
+    border-color: $primary-green;
+    background-color: $primary-green;
+    color: white;
+    padding: 10px;
+    width: 300px;
+    text-align: center;
+    justify-content: center;
+    ::placeholder {
+      color: white;
+      opacity: 1;
+    }
+  }
+
+  .buttoncontainer {
+    justify-content: center;
+  }
+
+  #checkoutheader {
+    font-weight:1000;
+    padding: 3px;
+    font-size: 25pt;
+    color: white;
+    }
+
+
+#checkoutitems {
+    padding: 3px;
+    color: $primary-blue
+        }
+
+        article {
+          padding:20px 0px;
+        }
+
+.shipping {
+  text-align: left;
+}
+
+#checkoutcontent {
+  margin-top: 50px;
+}
+
+#checkcolumn {
+  margin: 100px;
+}
+
+.navbar-dropdown {
+  background-color: $primary-blue;
+}
+
+.logo {
+  background-image: url(../assets/GINLOGO.svg);
+  background-size:cover;
+  border: none;
+}
+
+.footer {
+  background-color: $primary-blue;
+  border-top: 5px solid $primary-green;
+  color: white;
+}
+
+#premium {
+  background-image:linear-gradient(to bottom right, red , blue)
+}

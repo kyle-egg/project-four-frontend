@@ -1,9 +1,10 @@
 import React from 'react'
-import { useParams } from 'react-router-dom'
+import { useParams, NavLink } from 'react-router-dom'
 import { getGin, wishGin, createReview } from '../../lib/api'
 import { isAuthenticated } from '../../lib/auth'
-import { FadeInLeftDiv, FadeInRightDiv, FadeInUpDiv } from './Gins'
+import { FadeInDiv, FadeInLeftDiv, FadeInRightDiv, FadeInUpDiv } from './Gins'
 import Heart from 'react-heart'
+
 
 
 
@@ -23,7 +24,7 @@ function GinProfile() {
   const { ginId } = useParams()
   const isAuth = isAuthenticated()
   const [active, setActive] = React.useState(false)
-  const [showText, setShowText] = React.useState(false)
+  const [showBasket, setShowBasket] = React.useState(false)
 
   React.useEffect(() => {
     const getData = async () => {
@@ -42,7 +43,6 @@ function GinProfile() {
   const wishToggle = async e => {
     e.preventDefault()
     setActive(!active)
-    setShowText(true)
     try {
       const { data } = await wishGin(ginId)
       console.log('Wished/UnWished', data)
@@ -54,7 +54,6 @@ function GinProfile() {
 
   const submitComment = async e => {
     e.preventDefault()
-    setShowText(true)
     try {
       const { data } = await createReview(ginId, formData)
       console.log('Comment Submitted:', data)
@@ -70,9 +69,13 @@ function GinProfile() {
     setFormErrors({ ...formErrors, [e.target.name]: '' })
   }
 
-  const addToCart = () => {
+  const addToBasket = () => {
     basket.push(gin)
     console.log(basket)
+    setShowBasket(true)
+    setTimeout(function(){
+      setShowBasket(false) 
+    }, 3000)
   }
 
   const rateArray = []
@@ -80,12 +83,35 @@ function GinProfile() {
 
 
   return (
-    <section className="section">
-      {showText ? 
-        <p>SUP</p>
-        : null}
-      <div>
-        {gin &&
+    <>
+      {showBasket && (
+        <div className="basket">
+          <FadeInDiv>
+            <div>
+              <h2 id="profileheader">Your Basket:</h2>
+              {basket.length ? basket.map(gin => {
+                return <div key={gin.id}>
+                  <div>
+                    <h2 id="basketitems">{gin.name} - £{gin.price}</h2>
+                  </div>
+                </div> 
+              })
+            
+                :
+                <h3 id="profileheader">No Items In Basket!</h3>
+              }
+              <div className="buttoncontainer">
+                <NavLink to="/checkout">
+                  <button className="checkoutbutton">Go To Check Out!</button>
+                </NavLink>
+              </div>
+            </div>
+          </FadeInDiv>
+        </div>
+      )}
+      <section className="section">
+        <div>
+          {gin &&
         <>
           <>
             <div key={gin.id} className="columns">
@@ -133,7 +159,7 @@ function GinProfile() {
                   <h2 className="ginattributes" id="ginheader"><strong>{gin.name}</strong></h2>
                   <h5 className="ginattributes" id="gininfo">ABV{gin.abv}% - {gin.size}CL</h5>
                   <h3 className="ginattributes" id="ginsub-header">£{gin.price}</h3>
-                  <button className="buttons" onClick={addToCart}>Add To Cart</button>
+                  <button className="buttons" onClick={addToBasket}>Add To Basket</button>
                   <h4 className="ginattributes"><strong>About:</strong></h4>
                   <p className="ginattributes">{gin.bio}</p>
                   <h4 className="ginattributes"><strong>Origin:</strong></h4>
@@ -217,9 +243,10 @@ function GinProfile() {
             </section>
           </>
         </>
-        }
-      </div>
-    </section>
+          }
+        </div>
+      </section>
+    </>
   )
 }
 

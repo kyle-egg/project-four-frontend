@@ -2,6 +2,7 @@ import React from 'react'
 import { useHistory } from 'react-router-dom'
 import { setToken } from '../../lib/auth'
 import axios from 'axios'
+import { FadeInDiv } from '../gins/Gins'
 
 function Login() {
   const history = useHistory()
@@ -30,53 +31,56 @@ function Login() {
   }
 
   return (
-    <section className="section">
-      <div className="container">
-        <div className="columns">
-          <form
-            className="column is-half is-offset-one-quarter"
-            onSubmit={handleSubmit}
-          >
-            <div className="field">
-              <label className="label">Username:</label>
-              <div className="control">
-                <input
-                  className="input"
-                  placeholder="Username"
-                  name="username"
-                  onChange={handleChange}
-                />
+    <FadeInDiv>
+      <section className="hero is-fullheight" id="myprofile">
+        <div className="hero-body" id="profile-body">
+          <h1 id="checkoutheader">Login!</h1>
+          <div className="section">
+            <form
+              className="column"
+              onSubmit={handleSubmit}
+            >
+              <div className="field">
+                <label className="label">Username:</label>
+                <div className="control">
+                  <input
+                    className="input"
+                    placeholder="Username"
+                    name="username"
+                    onChange={handleChange}
+                  />
+                </div>
               </div>
-            </div>
-            <div className="field">
-              <label className="label">Password:</label>
-              <div className="control">
-                <input
-                  type="password"
-                  className="input"
-                  placeholder="Password"
-                  name="password"
-                  onChange={handleChange}
-                />
+              <div className="field">
+                <label className="label">Password:</label>
+                <div className="control">
+                  <input
+                    type="password"
+                    className="input"
+                    placeholder="Password"
+                    name="password"
+                    onChange={handleChange}
+                  />
+                </div>
               </div>
-            </div>
-            {isError && (
-              <>
-                <p className="help is-danger">
+              {isError && (
+                <>
+                  <p className="help is-danger">
                 Your E-mail And/Or Password Are Incorrect!<br></br>
                 Forgotten Your Password? <a>CLICK HERE!</a>
-                </p>
-              </>
-            )}
-            <div className="field">
-              <button type="submit" className="button is-fullwidth is-black">
+                  </p>
+                </>
+              )}
+              <div className="field">
+                <button type="submit" className="buttons">
                 Log In!
-              </button>
-            </div>
-          </form>
+                </button>
+              </div>
+            </form>
+          </div>
         </div>
-      </div>
-    </section>
+      </section>
+    </FadeInDiv>
   )
 }
 

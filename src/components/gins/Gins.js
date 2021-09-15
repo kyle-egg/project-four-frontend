@@ -30,6 +30,7 @@ function Gins() {
   const [gins, setGins] = React.useState(null)
   const [flavourValue, setFlavourValue] = React.useState('')
   const [searchValue, setSearchValue] = React.useState('')
+  const [showFilter, setShowFilter] = React.useState(false)
 
   React.useEffect(() => {
     const getData = async () => {
@@ -42,6 +43,15 @@ function Gins() {
 
   const handleFlavour = (e) => {
     setFlavourValue(e.target.value)
+  }
+
+
+  const seeFilter = () => {
+    if (!showFilter) {
+      setShowFilter(true)
+    } else {
+      setShowFilter(false)
+    }
   }
 
   const handleSearch = (e) => {
@@ -78,19 +88,23 @@ function Gins() {
             />
           </div>
           <div>
-            <button className="searchGins" id="sub-header">FILTER</button>
+            <button className="searchGins" id="sub-header" onClick={seeFilter}>FILTER</button>
           </div>
-          <select 
-            className='flavourSelector'
-            onChange={handleFlavour}>
-            <option value=''>Flavour:</option>
-            <option value='Classic'>Classic</option>
-            <option value='Citrus'>Citrus</option>
-            <option value='Spiced'>Spiced</option>
-            <option value='Fruit'>Fruit</option>
-            <option value='Floral'>Floral</option>
-            <option value='Herbs'>Herbs</option>
-          </select>
+          {showFilter && (
+            <div>
+              <select 
+                className='flavourSelector'
+                onChange={handleFlavour}>
+                <option value=''>Flavour:</option>
+                <option value='Classic'>Classic</option>
+                <option value='Citrus'>Citrus</option>
+                <option value='Spiced'>Spiced</option>
+                <option value='Fruit'>Fruit</option>
+                <option value='Floral'>Floral</option>
+                <option value='Herbs'>Herbs</option>
+              </select>
+            </div>
+          )}
         </div>
       </FadeDownDiv>
       {gins &&
@@ -102,9 +116,17 @@ function Gins() {
               <FadeInDiv>
                 <div className="card">
                   <div className="card-image">
-                    <figure className="image is-4by4">
-                      <img src={gin.image}></img>
-                    </figure>
+                    {!gin.isPremium ?
+                      <figure className="image is-4by4">
+                        <img src={gin.image}></img>
+                      </figure>
+                      :
+                      <div id="premium">
+                        <figure className="image is-4by4" id="premium">
+                          <img src={gin.image}></img>
+                        </figure>
+                      </div>
+                    }
                   </div>
                   <div className="media-content">
                     <h5 id="info">ABV{gin.abv}% - {gin.size}CL</h5>
