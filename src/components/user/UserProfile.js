@@ -35,7 +35,7 @@ function UserProfile() {
           <button className="buttons">Edit Details</button>
         </div>
         <div>
-          <section className="section">
+          <section className="section" id="profilecontent">
             <h2 id="profileheader">My Wish List!</h2>
             {profile.likedGins && (
               profile.likedGins.map(gin => {
@@ -60,7 +60,7 @@ function UserProfile() {
             <AliceCarousel mouseTracking items={items} 
               responsive={responsive}/>
           </section>
-          <section className="section">
+          <section className="section" id="profilecontent">
             <h2 id="profileheader">My Reviews!</h2>
             {profile.commentsMade && (
               profile.commentsMade.map(comment => {

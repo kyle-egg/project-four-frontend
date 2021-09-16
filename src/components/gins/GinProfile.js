@@ -23,6 +23,7 @@ function GinProfile() {
   const isAuth = isAuthenticated()
   const [active, setActive] = React.useState(false)
   const [showBasket, setShowBasket] = React.useState(false)
+  const [showWriteAReview, setShowWriteAReview] = React.useState(true)
   const history = useHistory()
 
   React.useEffect(() => {
@@ -40,7 +41,7 @@ function GinProfile() {
 
 
   const wishToggle = async e => {
-    e.preventDefault()
+    console.log(e)
     setActive(!active)
     try {
       const { data } = await wishGin(ginId)
@@ -61,6 +62,7 @@ function GinProfile() {
       setFormErrors(err.response.data.errors)
       console.log(err)
     }
+    setShowWriteAReview(false)
   }
 
   const inputtingComment = e => {
@@ -75,6 +77,11 @@ function GinProfile() {
     setTimeout(function(){
       setShowBasket(false) 
     }, 3000)
+  }
+
+  const closeBasket = () => {
+    setShowBasket(false) 
+    history.push('/login')
   }
 
   const rateArray = []
@@ -107,7 +114,10 @@ function GinProfile() {
               }
               <div className="buttoncontainer">
                 <NavLink to="/checkout">
-                  <button className="checkoutbutton">Go To Check Out!</button>
+                  <button 
+                    className="checkoutbutton"
+                    onClick={closeBasket}>
+                  Go To Check Out!</button>
                 </NavLink>
               </div>
             </div>
@@ -120,20 +130,28 @@ function GinProfile() {
         <>
           <>
             <div key={gin.id} className="columns">
-              <div className="column">
+              <div className="column" id="column">
                 <FadeInLeftDiv>
-                  {isAuth && gin.isPremium ?
-                    <div className="card-image">
-                      <figure className="image is-4by4" id="ginprofileimage">
-                        <img src={gin.image}></img>
-                      </figure>
+                  {!isAuth ?
+                    <div className="card-image" id="ginprofileimage">
+                      {!gin.isPremium ?
+                        <figure className="image is-4by4" id="ginprofileimage">
+                          <img id="ginprofileimage" src={gin.image}></img>
+                        </figure>
+                        :
+                        <div id="premium">
+                          <div>
+                            <svg xmlns="http://www.w3.org/2000/svg" className="ionicon" viewBox="0 0 512 512"><title>Lock Closed</title><path d="M336 208v-95a80 80 0 00-160 0v95" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="32"/><rect x="96" y="208" width="320" height="272" rx="48" ry="48" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="32"/></svg>
+                          </div>
+                          <figure className="image is-4by4" id="premium">
+                          </figure>
+                        </div>
+                      }
                     </div>
                     :
-                    <div id="premium">
-                      <div>
-                        <svg xmlns="http://www.w3.org/2000/svg" className="ionicon" viewBox="0 0 512 512"><title>Lock Closed</title><path d="M336 208v-95a80 80 0 00-160 0v95" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="32"/><rect x="96" y="208" width="320" height="272" rx="48" ry="48" fill="none" stroke="currentColor" strokeLinecap="round" strokeLinejoin="round" strokeWidth="32"/></svg>
-                      </div>
-                      <figure className="image is-4by4" id="premium">
+                    <div className="card-image" id="ginprofileimage">
+                      <figure className="image is-4by4" id="ginprofileimage">
+                        <img id="ginprofileimage" src={gin.image}></img>
                       </figure>
                     </div>
                   }
@@ -174,15 +192,22 @@ function GinProfile() {
                   <h2 className="ginattributes" id="ginheader"><strong>{gin.name}</strong></h2>
                   <h5 className="ginattributes" id="gininfo">ABV{gin.abv}% - {gin.size}CL</h5>
                   <h3 className="ginattributes" id="ginsub-header">£{gin.price}</h3>
-                  {isAuth && gin.isPremium ?
-                    <button className="buttons" onClick={addToBasket}>Add To Basket</button>
+                  {!isAuth ?
+                    <div>
+                      {!gin.isPremium ?
+                        <button className="buttons" onClick={addToBasket}>Add To Basket</button>
+                        :
+                        <>
+                          <h2 id="membermessage">This Gin Can Only Be Purchased By Members. Register Or Login Below!</h2>
+                          <button className="buttons" onClick={register}>Register</button>
+                          <button className="buttons" onClick={login}>Login</button>
+                        </>
+                      }
+                    </div>
                     :
-                    <>
-                      <h2 id="membermessage">This Gin Can Only Be Purchased By Members. Register Or Login Below!</h2>
-                      <button className="buttons" onClick={register}>Register</button>
-                      <button className="buttons" onClick={login}>Login</button>
-                    </>
-                  }
+                    <div>
+                      <button className="buttons" onClick={addToBasket}>Add To Basket</button>
+                    </div>}
                   <h4 className="ginattributes"><strong>About:</strong></h4>
                   <p className="ginattributes">{gin.bio}</p>
                   <h4 className="ginattributes"><strong>Origin:</strong></h4>
@@ -196,46 +221,54 @@ function GinProfile() {
                 </FadeInRightDiv>
               </div>
             </div>
-            <section>
+            <section className="section" id="profilecontent">
               <FadeInUpDiv>
                 {isAuth &&
-              <form
-                id='createComment'
-                onSubmit={submitComment}>
-                <div className="field">
-                  <label className="label" id="ginheader">Write A Review:</label>
-                  <div className="control">
-                    <input
-                      className={`input ${formErrors.text}`}
-                      placeholder="Write A Review Here..."
-                      name="text"
-                      onChange={inputtingComment}
-                      value={formData.text}
-                    />
-                  </div>
-                </div>
-                <div className="field">
-                  <label className="label">Rate it:</label>
-                  <div className="control">
-                    <input
-                      className={`input ${formErrors.rated}`}
-                      name="rated"
-                      placeholder="Rate Out Of 10.."
-                      type="number"
-                      onChange={inputtingComment}
-                      value={formData.rated}
-                    />
-                  </div>
-                </div>
-                <div className="field">
-                  <button 
-                    type="submit" 
-                    className="buttons"
-                    onSubmit={submitComment}>
+                <div>
+                  {showWriteAReview ?
+                    <form
+                      id='createComment'
+                      onSubmit={submitComment}>
+                      <div className="field">
+                        <label className="label" id="ginheader">Write A Review:</label>
+                        <div className="control">
+                          <input
+                            className={`input ${formErrors.text}`}
+                            placeholder="Write A Review Here..."
+                            name="text"
+                            onChange={inputtingComment}
+                            value={formData.text}
+                            id="reviewtextbox"
+                            rows="10"
+                          />
+                        </div>
+                      </div>
+                      <div className="field">
+                        <label className="label">Rate it:</label>
+                        <div className="control">
+                          <input
+                            className={`input ${formErrors.rated}`}
+                            name="rated"
+                            placeholder="Rate Out Of 10.."
+                            type="number"
+                            onChange={inputtingComment}
+                            value={formData.rated}
+                          />
+                        </div>
+                      </div>
+                      <div className="field">
+                        <button 
+                          type="submit" 
+                          className="buttons"
+                          onSubmit={submitComment}>
                       Submit Review!
-                  </button>
+                        </button>
+                      </div>
+                    </form>
+                    :
+                    <h2 id="ginheader">Review Submitted!</h2>
+                  }
                 </div>
-              </form>
                 }
                 <div id="reviews">
                   {gin.comments.length ?

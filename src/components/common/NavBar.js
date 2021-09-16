@@ -16,11 +16,17 @@ function NavBar() {
   }
 
   const seeBasket = () => {
+    console.log(basket)
     if (!showBasket) {
       setShowBasket(true)
     } else {
       setShowBasket(false)
     }
+  }
+
+  const closeBasket = () => { 
+    setShowBasket(false)
+    history.push('/checkout')
   }
 
   return (
@@ -85,9 +91,11 @@ function NavBar() {
                 <h3 id="profileheader">No Items In Basket!</h3>
               }
               <div className="buttoncontainer">
-                <NavLink to="/checkout">
-                  <button className="checkoutbutton">Go To Check Out!</button>
-                </NavLink>
+                <button 
+                  className="checkoutbutton"
+                  onClick={closeBasket}>
+                  Go To Check Out!
+                </button>
               </div>
             </div>
           </FadeInDiv>

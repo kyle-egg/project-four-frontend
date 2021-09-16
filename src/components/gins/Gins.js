@@ -60,9 +60,6 @@ function Gins() {
     setSearchValue(e.target.value)
   }
 
-  // const handleSort = (e) => {
-  //   console.log(e.target.value)
-  // }
 
   const filterGins = () => {
     if (flavourValue || searchValue) {
@@ -144,6 +141,9 @@ function Gins() {
                     <h5 id="info">ABV{gin.abv}% - {gin.size}CL</h5>
                     <h2 id="header">{gin.name.toUpperCase()}</h2>
                     <h3 id="sub-header">£{gin.price}</h3>
+                    {gin.isPremium && (
+                      <p id="membersonly">Members Only</p>
+                    )}
                   </div>
                 </div>
               </FadeInDiv>
