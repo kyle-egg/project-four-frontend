@@ -340,7 +340,7 @@ className="wishButton" />
 </div>
 }
 ```
-Display the average user rating of the gin
+Display the average user rating of the gin.
 ```javascript
 {gin.comments.length ?
 <h2 className="ginstat">This Gin Has An Average Member Rating Of: 
