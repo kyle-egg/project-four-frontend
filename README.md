@@ -90,9 +90,7 @@ N.B.: It goes without saying, that although the gins may be tempting, they are n
 
 **Database Entity Relationship Diagram**
 
-[Image]
-
-
+![Image](https://raw.githubusercontent.com/kyle-egg/project-four-frontend/main/QuickDBD-Gin%20Relationships.png)
 
 **WireFrame**
 
