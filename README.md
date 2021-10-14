@@ -95,7 +95,7 @@ N.B.: It goes without saying, that although the gins may be tempting, they are n
 **WireFrame**
 
 
-[Image]
+![Image](https://raw.githubusercontent.com/kyle-egg/project-four-frontend/main/WIREFRAME%20PROJECT4.jpg)
 
 
 ## General Approach & Planning
